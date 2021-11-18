@@ -1,0 +1,9 @@
+{
+  "todos": [
+    {
+      "id": 0,
+      "title": "Start project",
+      "completed": true
+    }
+  ]
+}
