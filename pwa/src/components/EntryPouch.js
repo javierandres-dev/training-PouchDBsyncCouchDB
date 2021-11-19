@@ -3,35 +3,33 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useRef, useState } from 'react';
-import { createTodo } from '../helpers/apiRequests';
-import { initialObj } from '../constants/initialObj';
+import { initialPouchObj } from '../constants/initialPouchObj';
+import { localAddDoc } from '../helpers/pouchRequests';
 
-export const Entry = ({ getTodos }) => {
-  const [obj, setObj] = useState(initialObj);
+export const EntryPouch = ({ getTodos }) => {
+  const [pouchObj, setPouchObj] = useState(initialPouchObj);
 
   const formRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const n = Date.now();
     const d = new Date();
-    setObj({
-      ...obj,
-      id: Date.now(),
-      log: d.toISOString(),
-      [name]: value,
+    setPouchObj({
+      ...pouchObj,
+      _id: n.toString(),
+      obj: {
+        ...pouchObj.obj,
+        id: n,
+        log: d.toISOString(),
+        [name]: value,
+      },
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    (async () => {
-      const r = await createTodo(obj);
-      if (r) {
-        setObj(initialObj);
-        getTodos();
-        formRef.current.reset();
-      }
-    })();
+    localAddDoc(pouchObj);
   };
 
   return (
@@ -48,7 +46,7 @@ export const Entry = ({ getTodos }) => {
             placeholder='To Do ...'
             type='text'
             name='title'
-            value={obj.title}
+            value={pouchObj.title}
             onChange={handleChange}
           />
         </Col>
