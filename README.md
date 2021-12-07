@@ -1,8 +1,8 @@
 # training-PouchDBsyncCouchDB
 :octocat: training-PouchDBsyncCouchDB
 
-This PWA is a ToDo List Application that use [PouchDB](https://pouchdb.com) using continuos
-replication with [CouchDB](https://couchdb.apache.org) , it's a separate mode where changes are
+This PWA is a ToDo List Application that uses [PouchDB](https://pouchdb.com) at using continuos
+replication with [CouchDB](https://couchdb.apache.org), it's a separate mode where changes are
 propagated between the two databases as the changes occur.
 
 ![Replication](https://pouchdb.com/static/img/offline_replication.gif)
